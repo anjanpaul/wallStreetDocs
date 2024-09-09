@@ -1,0 +1,21 @@
+---
+- hosts: ntp_servers
+  become: yes
+  tasks:
+    - name: Ensure ntpd package is installed
+      apt:
+        name: ntpd
+        state: present
+
+    - name: Deploy custom ntpd.conf
+      copy:
+        src: /path/to/custom/ntpd.conf
+        dest: /etc/ntpd.conf
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: Restart ntpd service
+      service:
+        name: ntp
+        state: restarted

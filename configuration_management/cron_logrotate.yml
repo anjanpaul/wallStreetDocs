@@ -1,0 +1,10 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: Ensure cron job for logrotate is set
+      cron:
+        name: "logrotate every 10 minutes between 2h - 4h"
+        minute: "*/10"
+        hour: "2-4"
+        job: "/usr/sbin/logrotate /etc/logrotate.conf"
